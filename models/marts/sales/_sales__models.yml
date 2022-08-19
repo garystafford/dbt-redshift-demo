@@ -1,0 +1,8 @@
+version: 2
+
+models:
+    - name: fct_listings
+      description: All listing with details
+
+    - name: fct_sales
+      description: All sales with details

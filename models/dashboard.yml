@@ -1,0 +1,18 @@
+version: 2
+
+exposures:
+  
+  - name: tickit_sales_summary
+    type: dashboard
+    maturity: medium
+    url: https://us-east-1.quicksight.aws.amazon.com
+    description: >
+      TICKIT sales summary dashboard, authored in Amazon QuickSight
+    
+    depends_on:
+      - ref('fct_sales')
+      - ref('fct_listings')
+      
+    owner:
+      name: Gary A. Stafford
+      email: gary.a.stafford@gmail.com

@@ -1,0 +1,21 @@
+version: 2
+
+models:    
+    - name: buyer_likes
+      description: Total likes of buyers
+
+    - name: monthly_sales
+      description: Total sales by by month and year
+
+    - name: non_buyer_likes
+      description: Total likes of non-buyers
+
+    - name: sales_by_category
+      description: Total sales by category group and category name
+
+    - name: top_grossing_events
+      description: Top grossing 99.0 percentile of events
+
+    - name: top_sellers
+      description: Top 99.9 percentile of sellers
+

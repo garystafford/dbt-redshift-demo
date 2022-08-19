@@ -1,0 +1,311 @@
+version: 2
+
+sources:
+  - name: tickit_external
+    description: Sales activity for the fictional TICKIT web site, where users buy and sell tickets online for sporting events, shows, and concerts.
+    database: demo
+    schema: tickit_external
+    loader: s3
+    tables:
+      - name: category
+        description: dimension table - TICKIT categories
+        external:
+          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/category/"
+          row_format: >
+            serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+            with serdeproperties (
+                'separatorChar'='|'
+            )
+          table_properties: "('skip.header.line.count'='1')"
+        columns:
+          - name: catid
+            data_type: int
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: catgroup
+            data_type: varchar(20)
+            tests:
+              - not_null            
+          - name: catname
+            data_type: varchar(20)
+            tests:
+              - not_null            
+          - name: catdesc
+            data_type: varchar(50)
+
+      - name: date
+        description: dimension table - TICKIT dates
+        external:
+          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/date/"
+          row_format: >
+            serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+            with serdeproperties (
+                'separatorChar'='|'
+            )
+          table_properties: "('skip.header.line.count'='1')"
+        columns:
+          - name: dateid
+            data_type: int
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: caldate
+            data_type: date
+            tests:
+              - not_null            
+          - name: day
+            data_type: smallint
+            tests:
+              - not_null            
+          - name: month
+            data_type: smallint
+            tests:
+              - not_null            
+          - name: year
+            data_type: smallint
+            tests:
+              - not_null            
+          - name: week
+            data_type: smallint
+            tests:
+              - not_null            
+          - name: qtr
+            data_type: smallint
+            tests:
+              - not_null            
+          - name: holiday
+            data_type: boolean
+
+      - name: event
+        description: dimension table - TICKIT events
+        external:
+          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/event/"
+          row_format: >
+            serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+            with serdeproperties (
+                'separatorChar'='|'
+            )
+          table_properties: "('skip.header.line.count'='1')"
+        columns:
+          - name: eventid
+            data_type: int
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: venueid
+            data_type: int
+            tests:
+              - not_null
+          - name: catid
+            data_type: int
+            tests:
+              - not_null
+          - name: dateid
+            data_type: int
+            tests:
+              - not_null
+          - name: eventname
+            data_type: varchar(200)
+            tests:
+              - not_null            
+          - name: starttime
+            data_type: timestamp
+            tests:
+              - not_null
+
+      - name: listing
+        description: fact table - TICKIT listings
+        external:
+          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/listing/"
+          row_format: >
+            serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+            with serdeproperties (
+                'separatorChar'='|'
+            )
+          table_properties: "('skip.header.line.count'='1')"
+        columns:
+          - name: listid
+            data_type: int
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: sellerid
+            data_type: int
+            tests:
+              - not_null
+          - name: eventid
+            data_type: int
+            tests:
+              - not_null
+          - name: dateid
+            data_type: int
+            tests:
+              - not_null
+          - name: numtickets
+            data_type: smallint
+            tests:
+              - not_null
+          - name: priceperticket
+            data_type: decimal(8, 2)
+            tests:
+              - not_null
+          - name: totalprice
+            data_type: decimal(8, 2)
+            tests:
+              - not_null
+          - name: listtime
+            data_type: timestamp
+            tests:
+              - not_null
+
+      - name: sale
+        description: fact table - TICKIT sales
+        external:
+          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/sale/"
+          row_format: >
+            serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+            with serdeproperties (
+                'separatorChar'='|'
+            )
+          table_properties: "('skip.header.line.count'='1')"
+        columns:
+          - name: saleid
+            data_type: int
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: listid
+            data_type: int
+            tests:
+              - not_null
+          - name: sellerid
+            data_type: int
+            tests:
+              - not_null
+          - name: buyerid
+            data_type: int
+            tests:
+              - not_null            
+          - name: eventid
+            data_type: int
+            tests:
+              - not_null
+            tests:
+              - not_null
+          - name: dateid
+            data_type: int
+            tests:
+              - not_null
+          - name: qtysold
+            data_type: smallint
+            tests:
+              - not_null            
+          - name: pricepaid
+            data_type: decimal(8, 2)
+            tests:
+              - not_null            
+          - name: commission
+            data_type: decimal(8, 2)
+            tests:
+              - not_null            
+          - name: saletime
+            data_type: timestamp
+            tests:
+              - not_null
+
+      - name: user
+        description: dimension table - TICKIT users
+        external:
+          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/user/"
+          row_format: >
+            serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+            with serdeproperties (
+                'separatorChar'='|'
+            )
+          table_properties: "('skip.header.line.count'='1')"
+        columns:
+          - name: userid
+            data_type: int
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: username
+            data_type: char(8)
+            tests:
+              - unique
+              - not_null       
+          - name: firstname
+            data_type: varchar(30)
+            tests:
+              - not_null            
+          - name: lastname
+            data_type: varchar(30)
+            tests:
+              - not_null            
+          - name: city
+            data_type: varchar(30)
+          - name: state
+            data_type: char(2)
+          - name: email
+            data_type: varchar(100)
+          - name: phone
+            data_type: char(14)
+          - name: likesports
+            data_type: boolean
+          - name: liketheatre
+            data_type: boolean
+          - name: likeconcerts
+            data_type: boolean
+          - name: likejazz
+            data_type: boolean
+          - name: likeclassical
+            data_type: boolean
+          - name: likeopera
+            data_type: boolean
+          - name: likerock
+            data_type: boolean
+          - name: likevegas
+            data_type: boolean
+          - name: likebroadway
+            data_type: boolean
+          - name: likemusicals
+            data_type: boolean
+
+      - name: venue
+        description: dimension table - TICKIT venues
+        external:
+          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/venue/"
+          row_format: >
+            serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
+            with serdeproperties (
+                'separatorChar'='|'
+            )
+          table_properties: "('skip.header.line.count'='1')"
+        columns:
+          - name: venueid
+            data_type: int
+            description: primary key
+            tests:
+              - unique
+              - not_null
+          - name: venuename
+            data_type: varchar(100)
+            tests:
+              - not_null            
+          - name: venuecity
+            data_type: varchar(30)
+            tests:
+              - not_null            
+          - name: venuestate
+            data_type: char(2)
+            tests:
+              - not_null            
+          - name: venueseats
+            data_type: integer
