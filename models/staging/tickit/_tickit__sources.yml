@@ -10,7 +10,7 @@ sources:
       - name: category
         description: dimension table - TICKIT categories
         external:
-          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/category/"
+          location: "s3://<your_s3_bucket_name>/raw_tickit_data/category/"
           row_format: >
             serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
             with serdeproperties (
@@ -38,7 +38,7 @@ sources:
       - name: date
         description: dimension table - TICKIT dates
         external:
-          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/date/"
+          location: "s3://<your_s3_bucket_name>/raw_tickit_data/date/"
           row_format: >
             serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
             with serdeproperties (
@@ -82,7 +82,7 @@ sources:
       - name: event
         description: dimension table - TICKIT events
         external:
-          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/event/"
+          location: "s3://<your_s3_bucket_name>/raw_tickit_data/event/"
           row_format: >
             serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
             with serdeproperties (
@@ -120,7 +120,7 @@ sources:
       - name: listing
         description: fact table - TICKIT listings
         external:
-          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/listing/"
+          location: "s3://<your_s3_bucket_name>/raw_tickit_data/listing/"
           row_format: >
             serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
             with serdeproperties (
@@ -166,7 +166,7 @@ sources:
       - name: sale
         description: fact table - TICKIT sales
         external:
-          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/sale/"
+          location: "s3://<your_s3_bucket_name>/raw_tickit_data/sale/"
           row_format: >
             serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
             with serdeproperties (
@@ -222,7 +222,7 @@ sources:
       - name: user
         description: dimension table - TICKIT users
         external:
-          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/user/"
+          location: "s3://<your_s3_bucket_name>/raw_tickit_data/user/"
           row_format: >
             serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
             with serdeproperties (
@@ -281,7 +281,7 @@ sources:
       - name: venue
         description: dimension table - TICKIT venues
         external:
-          location: "s3://open-data-lake-demo-us-east-1/raw_tickit_data/venue/"
+          location: "s3://<your_s3_bucket_name>/raw_tickit_data/venue/"
           row_format: >
             serde 'org.apache.hadoop.hive.serde2.OpenCSVSerde'
             with serdeproperties (
