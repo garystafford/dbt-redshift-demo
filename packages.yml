@@ -1,4 +1,4 @@
-# updated 2022-12-29 (dbt=1.3.1 locally and dbt=1.3.0 in dbt cloud)
+# updated 2022-12-29 (dbt=1.3.1 locally and dbt=1.3.1 in dbt cloud)
 packages:
   - package: dbt-labs/dbt_external_tables
     version: 0.8.2
