@@ -1,4 +1,6 @@
--- redshift setup
+-- Purpose: Setup new redshift database for dbt demo
+-- Author: Gary A. Stafford
+-- Date: 2022-12-29
 
 -- optional: drop previous demo
 drop database demo;
@@ -12,9 +14,9 @@ drop group dbt
 -- create new database
 create database demo with owner admin;
 
--- switch connection to new demo database before continuing!
+-- switch redshift database connection to new demo database before continuing!
 
--- create schemas
+-- create external tables schema and new glue data catalog
 create external schema tickit_external
 from data catalog
 database 'tickit_dbt'
