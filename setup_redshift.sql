@@ -2,13 +2,13 @@
 -- Author: Gary A. Stafford
 -- Date: 2022-12-29
 
--- optional: drop previous demo
+-- optional: drop previous demo database
 drop database demo;
 
--- optional: drop previous user
+-- optional: drop previous dbt user
 drop user dbt;
 
--- optional: drop previous group
+-- optional: drop previous dbt group
 drop group dbt
 
 -- create new database
