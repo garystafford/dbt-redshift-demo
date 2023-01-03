@@ -9,7 +9,7 @@ drop database demo;
 drop user dbt;
 
 -- optional: drop previous dbt group
-drop group dbt
+drop group dbt;
 
 -- create new database
 create database demo with owner admin;
